@@ -14,10 +14,18 @@
 <script type="text/babel">
 
   var Navbar= React.createClass({
+    PropTypes:{
+      websitename:React.PropTypes.string
+    },
+    getDefaultProps:function(){
+        return {
+          websitename:"My Sample React App"
+        }
+      },
     render: function(){
       return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
-          <a className="navbar-brand" href="#">Website Name</a>
+          <a className="navbar-brand" href="#">{this.props.websitename}</a>
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
@@ -40,13 +48,25 @@
   });
 
   var Jumbotron= React.createClass({
+     PropTypes:{
+      heading:React.PropTypes.string,
+      text:React.PropTypes.string,
+      link:React.PropTypes.string
+    },
+    getDefaultProps:function(){
+        return {
+          heading:"Hello, world!",
+          text:"This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.",
+          link:"http:www.google.com"
+        }
+      },
     render: function(){
       return (
         <div className="jumbotron">
         <div className="container">
-          <h1 className="display-3">Hello, world!</h1>
-          <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-          <p><a className="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+          <h1 className="display-3">{this.props.heading}</h1>
+          <p>{this.props.text}</p>
+          <p><a className="btn btn-primary btn-lg" href={this.props.link} role="button">Learn more &raquo;</a></p>
         </div>
       </div>
       )
@@ -69,10 +89,18 @@
   }
   });
   var Footer= React.createClass({
+     PropTypes:{
+      footerText:React.PropTypes.string
+    },
+    getDefaultProps:function(){
+        return {
+          footerText:"Website Name 2017-2018"
+        }
+      },
     render: function(){
       return (
         <footer className="container">
-          <p>&copy; Website Name 2017-2018</p>
+          <p>&copy; {this.props.footerText}</p>
         </footer>
 
       )
