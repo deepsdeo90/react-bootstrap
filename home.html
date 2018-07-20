@@ -23,6 +23,14 @@
         }
       },
     render: function(){
+      var homeActive='';
+      var aboutActive='';
+      if(this.props.page=='home'){
+        homeActive='active';
+      }else if(this.props.page=='about'){
+        aboutActive='active';
+      }
+
       return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
           <a className="navbar-brand" href="#">{this.props.websitename}</a>
@@ -32,11 +40,11 @@
 
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mr-auto">
-              <li className="nav-item active">
-                <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
+              <li className="nav-item" className={homeActive}>
+                <a className="nav-link" onClick={this.props.handleHomeClick} href="#">Home </a>
               </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">About Us</a>
+              <li className="nav-item " className={aboutActive}>
+                <a className="nav-link" onClick={this.props.handleAboutClick} href="#">About Us</a>
               </li>
               
             </ul>
@@ -73,13 +81,22 @@
   }
   });
 
-  var Main= React.createClass({
+  var Home= React.createClass({
     render: function(){
       return (
         <main role="main">
       <div className="container">
         <div className="row">
-          Main content
+          <h2 className='page-header'>Home</h2>
+          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+
+</p>
+      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+
+</p>
+      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+
+</p>
         </div>
         <hr/>
       </div> 
@@ -88,6 +105,25 @@
       )
   }
   });
+
+  var About= React.createClass({
+    render: function(){
+      return (
+        <main role="main">
+      <div className="container">
+        <div className="row">
+          <h2 className="page=header">About Us</h2>
+          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+        </div>
+        <hr/>
+      </div> 
+    </main>
+
+      )
+  }
+  });
+
+
   var Footer= React.createClass({
      PropTypes:{
       footerText:React.PropTypes.string
@@ -107,12 +143,40 @@
   }
   });
   var App= React.createClass({
+    getInitialState: function(){
+      return {
+        page:'home'
+      }
+    },
+    handleHomeClick:function(){
+      this.setState({
+        page:'home'
+      })
+    },
+
+    handleAboutClick:function(){
+      this.setState({
+        page:'about'
+      })
+    },
     render: function(){
+      if(this.state.page=='home'){
+        var jumbotron = <Jumbotron/>;
+        var page = <Home />;
+          
+      }else{
+        var jumbotron='';
+        var page = <About />;
+      }
       return (
         <div>
-          <Navbar />
-          <Jumbotron/>
-          <Main />
+          <Navbar 
+            handleHomeClick={this.handleHomeClick}
+            handleAboutClick={this.handleAboutClick}
+            page={this.state.page}
+          />
+          {jumbotron}
+          {page}
           <Footer />
         </div>
       )
